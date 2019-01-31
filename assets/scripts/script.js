@@ -1,6 +1,6 @@
 $(document).on('scroll', function() {
 
-  if($(document).scrollTop()>64&&$(document).scrollTop()<128) {
+  if($(document).scrollTop()>64&&$(document).scrollTop()<256) {
     $('.ofd-header').addClass('-hide');
   } else {
     $('.ofd-header').removeClass('-hide');
