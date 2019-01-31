@@ -1,61 +1,81 @@
-var gulp =  require('gulp');
-var sass = require('gulp-sass');
-var slim = require('gulp-slim');
-var minifyCSS = require('gulp-clean-css');
-var uglify = require('gulp-uglify');
-var plumber = require('gulp-plumber');
-var notify = require('gulp-notify');
+#
+# Gulpfile with:
+#
+# - Slim
+# - Sass
+# - Browsersync
+# - CSS and HTML compression
+#
+# Install dependencies:
+#
+#   $ npm install gulp gulp-concat gulp-uglify event-stream gulp-sass gulp-cssmin browser-sync gulp-util gulp-shell
+#
+# Then start developing:
+#
+#   $ gulp
+#
 
-gulp.task('sass', function() {
-  return gulp.src('./src/style/**/*.sass')
-    .pipe(plumber( { errorHandler: function(error) {
-      notify.onError({
-        title: "Gulp error in "+ error.plugin,
-        message: error.toString()
-      })(error);
-    }}))
-    .pipe(sass( {
-      includePaths: ['./src/style'],
-      outputStyle: 'expanded'
-    }))
-    .pipe(gulp.dest('./style'))
-});
+gulp        = require 'gulp'
+concat      = require 'gulp-concat'
+es          = require('event-stream')
+sass        = require 'gulp-sass'
+uglify      = require 'gulp-uglify'
+streamqueue = require 'streamqueue' # Preserves file order (vendor...)
+gutil       = require 'gulp-util'
+shell       = require 'gulp-shell'
+cssmin      = require 'gulp-cssmin'
+browserSync = require 'browser-sync'
 
-gulp.task('sass-minified', function() {
-  return gulp.src('./src/style/**/*.sass')
-    .pipe(plumber( { errorHandler: function(error) {
-      notify.onError({
-        title: "Gulp error in "+ error.plugin,
-        message: error.toString()
-      })(error);
-    }}))
-    .pipe(sass( {
-      includePaths: ['./src/style'],
-      outputStyle: 'expanded'
-    }))
-    .pipe(minifyCSS())
-    .pipe(gulp.dest('./style'))
-});
+isProd = gutil.env.type is 'prod'
 
-gulp.task('slim', function() {
-  return gulp.src('./src/view/*.slim')
-    .pipe(plumber())
-    .pipe(slim({ pretty: true}))
-    .pipe(gulp.dest('./'))
-});
+sources =
+  sass: 'src/css/**/*.sass'
+  css: 'src/css/**/*.css'
+  html: 'src/**/*.slim'
+  js: 'src/js/**/*.js'
 
-gulp.task('uglify', function() {
-  return gulp.src('./src/js/*.js')
-    .pipe(plumber())
-    .pipe(uglify())
-    .pipe(gulp.dest('./js'))
-});
+targets =
+  css: 'www/css'
+  html: 'www/'
+  js: 'www/js'
 
-gulp.task('watch', function() {
-  gulp.watch('./src/style/**/*.sass', ['sass']);
-  gulp.watch('./src/view/**/*.slim', ['slim']);
-});
+# Compile Slim
+gulp.task 'slim', ->
+  gulp.src(sources.html)
+    .pipe(shell(["slimrb -r ./lib/helpers.rb -p <%= file.path %> > ./#{targets.html}/<%= file.relative.replace(\".slim\", \".html\") %>"]))
 
-gulp.task('default', ['sass', 'slim', 'watch'] )
+# Compile CSS
+gulp.task 'css', ->
+  stream = streamqueue(objectMode: true)
+  # Vendor files
+  stream.queue(gulp.src(sources.css))
+  # App files
+  stream.queue(gulp.src(sources.sass).pipe(sass(style: 'expanded', includePaths: ['src/css'], errLogToConsole: true)))
+  stream.done()
+    .pipe(concat("all.css"))
+    .pipe(if isProd then uglify() else gutil.noop())
+    .pipe(gulp.dest(targets.css))
 
-gulp.task('release', ['sass-minified', 'uglify', 'slim', 'watch'] )
+# Reload browser
+gulp.task 'server', ->
+  browserSync.init null,
+    open: true
+    server:
+      baseDir: targets.html
+    reloadDelay: 2000 # Prevent white screen of death
+    watchOptions:
+      debounceDelay: 1000
+
+# Watch files for changes
+gulp.task 'watch', ->
+  gulp.watch sources.js, ['js']
+  gulp.watch sources.css, ['css']
+  gulp.watch sources.html, ['slim']
+  gulp.watch 'www/**/**', (file) ->
+    browserSync.reload(file.path) if file.type is "changed"
+
+# Build everything
+gulp.task 'build', ['lint', 'js', 'css', 'slim']
+
+# Start a server and watch for file changes
+gulp.task 'default', ['watch', 'server']

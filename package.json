@@ -7,5 +7,8 @@
     "gulp-sass": "latest",
     "gulp-slim": "^0.3.0",
     "gulp-uglify": "latest"
+  },
+  "dependencies": {
+    "gulp-clean-css": "^4.0.0"
   }
 }
