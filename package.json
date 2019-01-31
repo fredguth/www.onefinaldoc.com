@@ -1,7 +1,13 @@
 {
   "devDependencies": {
+    "autoprefixer": "^9.4.7",
+    "browser-sync": "^2.26.3",
+    "cp": "latest",
+    "cssnano": "^4.1.8",
+    "del": "^3.0.0",
     "gulp": "^4.0.0",
-    "gulp-minify-css": "latest",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-newer": "^1.4.0",
     "gulp-notify": "latest",
     "gulp-plumber": "^1.2.1",
     "gulp-sass": "^4.0.2",
@@ -9,13 +15,7 @@
     "gulp-uglify": "latest"
   },
   "dependencies": {
-    "autoprefixer": "^9.4.7",
-    "browser-sync": "^2.26.3",
-    "cssnano": "^4.1.8",
-    "del": "^3.0.0",
     "gulp-clean-css": "^4.0.0",
-    "gulp-imagemin": "^5.0.3",
-    "gulp-newer": "^1.4.0",
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0"
   }
