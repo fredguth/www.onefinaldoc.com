@@ -25,13 +25,18 @@ table
 
 body
   min-height: 100%
-  padding-top: $space-header
 
 img
   max-width: 100%
 
 main > section
   +container-width
-  margin-top: $space-deca
+  padding-top: $space-deca
+  padding-bottom: $space-deca
   +media-mediumup
-    margin-top: $space-kilo
+    padding-top: $space-hecto
+    padding-bottom: $space-hecto
+  &:first-of-type
+    padding-top: $space-deca + $space-header
+    +media-mediumup
+      padding-top: $space-hecto + $space-header

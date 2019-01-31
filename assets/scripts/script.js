@@ -6,7 +6,7 @@ $(document).on('scroll', function() {
     $('.ofd-header').removeClass('-hide');
   }
 
-  if ($(document).scrollTop()>128) {
+  if ($(document).scrollTop()>256) {
     $('.ofd-header').addClass('-fix');
   } else {
     $('.ofd-header').removeClass('-fix');

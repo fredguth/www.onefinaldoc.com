@@ -2,18 +2,31 @@
   display: flex
   flex-direction: column-reverse
   align-items: center
+  position: relative
   +media-mediumup
     flex-direction: row
+    &::after
+      content: ''
+      width: 30%
+      position: absolute
+      right: 0
+      top: 0
+      bottom: 0
+      display: block
+      z-index: -1
+      background: repeating-linear-gradient(-45deg, transparent, transparent 3rem, $color-ofd-red 3rem, $color-ofd-red 8rem)
   > .mail
     background-color: #fff
     box-shadow: 0 4px 12px rgba(#000, 0.4)
     border-radius: 5px
     padding: $space-deci
+    +media-mediumdown
+      margin-bottom: $space-base
     +media-mediumup
       padding: $space-base
       min-width: 32rem
       width: 32rem
-      margin-left: $space-deci
+      margin-left: $space-base
     > .header
       border-bottom: 1px solid hsl(0, 0%, 80%)
       padding-bottom: $space-milli
