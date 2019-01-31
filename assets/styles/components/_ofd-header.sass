@@ -16,6 +16,10 @@
     opacity: 0
     font-weight: 700
     +typography-sizes($font-size-deci, $line-height-centi)
+    > span
+      position: relative
+      // TODO: Refact border-bottom to pseudo-element so it can be positioned
+      border-bottom: 2px solid currentColor
 
   &.-fix
     background-color: $color-ofd-yellow
