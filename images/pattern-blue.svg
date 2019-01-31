@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280px" height="1120px" viewBox="0 0 1280 1120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-4">
+            <rect id="Rectangle" fill="#0077CC" x="0" y="0" width="1280" height="1120"></rect>
+            <path d="M1040,808 C1079.764,808 1112,840.236 1112,880 C1112,919.764 1079.764,952 1040,952 C1000.236,952 968,919.764 968,880 C968,840.236 1000.236,808 1040,808" id="Fill-24" fill="#FF7755"></path>
+            <polygon id="Fill-32" fill="#FFFFFF" points="816 976 944 976 944 1104"></polygon>
+            <polygon id="Fill-40" fill="#FF7755" points="1132.6778 515.3008 1155.3038 492.6748 1267.3098 604.6768 1244.6818 627.3048"></polygon>
+            <polygon id="Fill-44" fill="#DDCCAA" points="652.6846 924.6738 764.6886 812.6698 787.3166 835.2978 675.3126 947.2998"></polygon>
+            <path d="M16,944 L48,944 C48,890.8 90.8,848 144,848 L144,816 C73.2,816 16,873.2 16,944" id="Fill-8" fill="#FF7755"></path>
+            <polygon id="Fill-31" fill="#DDCCAA" points="16 976 144 976 144 1104"></polygon>
+            <polygon id="Fill-38" fill="#DDCCAA" points="144 496 144 624 16 624"></polygon>
+            <polygon id="Fill-41" fill="#334477" points="12.6758 355.3028 35.3018 332.6748 147.3058 444.6788 124.6798 467.3068"></polygon>
+        </g>
+    </g>
+</svg>

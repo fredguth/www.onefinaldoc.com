@@ -1,0 +1,38 @@
+// Breakopints
+
+$bp-small: 640px
+$bp-medium: 960px
+$bp-large: 1024px
+$bp-huge: 1920px
+
+// Mixins
+
+=small-only
+  @media (max-width: $bp-small)
+    @content
+=medium-only
+  @media (min-width: $bp-small + 1px) and (max-width: $bp-medium)
+    @content
+=large-only
+  @media (min-width: $bp-medium + 1px) and (max-width: $bp-large)
+    @content
+=huge-only
+  @media (min-width: $bp-large + 1px) and (max-width: $bp-huge)
+    @content
+
+=medium-up
+  @media (min-width: $bp-medium + 1px)
+    @content
+=large-up
+  @media (min-width: $bp-large + 1px)
+    @content
+=huge-up
+  @media (min-width: $bp-huge + 1px)
+    @content
+
+=medium-down
+  @media (max-width: $bp-medium)
+    @content
+=large-down
+  @media (max-width: $bp-large)
+    @content

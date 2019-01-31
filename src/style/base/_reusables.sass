@@ -1,0 +1,68 @@
+=container($sidespace: calc(#{$space-xs} + 10vw))
+  padding-left: $sidespace
+  padding-right: $sidespace
+
+=v-align
+  position: relative
+  top: 50%
+  transform: translateY(-50%)
+
+=click-states($bgcolor)
+  &:hover
+    background-color: mix(#000, $bgcolor, 5%)
+  &:focus
+    background-color: mix(#000, $bgcolor, 10%)
+  &:active
+    background-color: mix(#000, $bgcolor, 15%)
+
+=btn-size
+  padding-top: $space-xs
+  padding-bottom: $space-xs
+  padding-right: $space-m
+  padding-left: $space-m
+  font-size: $font-size-base
+  line-height: $line-height-deci
+
+=btn-size-small
+  padding-top: $space-xxs
+  padding-bottom: $space-xxs
+  padding-right: $space-s
+  padding-left: $space-s
+  font-size: $font-size-centi
+  line-height: $line-height-centi
+
+=btn-size-tiny
+  padding-top: $space-xxs
+  padding-bottom: $space-xxs
+  padding-right: $space-xs
+  padding-left: $space-xs
+  font-size: $font-size-mili
+  line-height: $line-height-mili
+
+=btn-color($bgcolor: $color-topaz, $txcolor: #fff)
+  color: $txcolor
+  background-color: $bgcolor
+  +click-states($bgcolor)
+
+
+=smart-underline($background: #fff, $selection: $color-selection, $position: 90%)
+  color: inherit
+  text-decoration: none
+  background: -webkit-linear-gradient(currentColor, currentColor)
+  background-size: 1px 1px
+  background-repeat: repeat-x
+  text-shadow: 0 0.03em $background, 0 -0.03em $background, 0.06em 0 $background, -0.06em 0 $background, 0.09em 0 $background, -0.09em 0 $background, 0.12em 0 $background, -0.12em 0 $background, 0.15em 0 $background, -0.15em 0 $background
+  background-position-y: $position
+  background-position-x: 0%
+  &::selection 
+    text-shadow: 0.03em 0 $selection, -0.03em 0 $selection, 0 0.03em $selection, 0 -0.03em $selection, 0.06em 0 $selection, -0.06em 0 $selection, 0.09em 0 $selection, -0.09em 0 $selection, 0.12em 0 $selection, -0.12em 0 $selection, 0.15em 0 $selection, -0.15em 0 $selection
+    background: $selection
+  &::-moz-selection 
+    text-shadow: 0.03em 0 $selection, -0.03em 0 $selection, 0 0.03em $selection, 0 -0.03em $selection, 0.06em 0 $selection, -0.06em 0 $selection, 0.09em 0 $selection, -0.09em 0 $selection, 0.12em 0 $selection, -0.12em 0 $selection, 0.15em 0 $selection, -0.15em 0 $selection
+    background: $selection
+  &:before, &:after, *, *:before, *:after 
+    text-shadow: none
+  &:visited
+    color: inherit
+    
+  
