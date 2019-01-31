@@ -1,58 +1,99 @@
-gulp        = require 'gulp'
-concat      = require 'gulp-concat'
-es          = require('event-stream')
-sass        = require 'gulp-sass'
-uglify      = require 'gulp-uglify'
-streamqueue = require 'streamqueue'
-gutil       = require 'gulp-util'
-shell       = require 'gulp-shell'
-cssmin      = require 'gulp-cssmin'
-browserSync = require 'browser-sync'
+"use strict";
 
-isProd = gutil.env.type is 'prod'
+// Load plugins
+const autoprefixer = require("autoprefixer");
+const browsersync = require("browser-sync").create();
+const cssnano = require("cssnano");
+const del = require("del");
+const gulp = require("gulp");
+const imagemin = require("gulp-imagemin");
+const newer = require("gulp-newer");
+const plumber = require("gulp-plumber");
+const postcss = require("gulp-postcss");
+const rename = require("gulp-rename");
+const sass = require("gulp-sass");
 
-sources =
-  sass: 'src/css/**/*.sass'
-  css: 'src/css/**/*.css'
-  html: 'src/**/*.slim'
-  js: 'src/js/**/*.js'
+// BrowserSync
+function browserSync(done) {
+  browsersync.init({
+    server: {
+      baseDir: "./_site/"
+    },
+    port: 3000
+  });
+  done();
+}
 
-targets =
-  css: 'www/css'
-  html: 'www/'
-  js: 'www/js'
+// BrowserSync Reload
+function browserSyncReload(done) {
+  browsersync.reload();
+  done();
+}
 
-gulp.task 'slim', ->
-  gulp.src(sources.html)
-    .pipe(shell(["slimrb -r ./lib/helpers.rb -p <%= file.path %> > .
+// Clean assets
+function clean() {
+  return del(["./_site/assets/"]);
+}
 
-gulp.task 'css', ->
-  stream = streamqueue(objectMode: true)
+// Optimize Images
+function images() {
+  return gulp
+    .src("./assets/img/**/*")
+    .pipe(newer("./_site/assets/img"))
+    .pipe(
+      imagemin([
+        imagemin.gifsicle({ interlaced: true }),
+        imagemin.jpegtran({ progressive: true }),
+        imagemin.optipng({ optimizationLevel: 5 }),
+        imagemin.svgo({
+          plugins: [
+            {
+              removeViewBox: false,
+              collapseGroups: true
+            }
+          ]
+        })
+      ])
+    )
+    .pipe(gulp.dest("./_site/assets/img"));
+}
 
-  stream.queue(gulp.src(sources.css))
+// CSS task
+function css() {
+  return gulp
+    .src("./assets/scss/**/*.scss")
+    .pipe(plumber())
+    .pipe(sass({ outputStyle: "expanded" }))
+    .pipe(gulp.dest("./_site/assets/css/"))
+    .pipe(rename({ suffix: ".min" }))
+    .pipe(postcss([autoprefixer(), cssnano()]))
+    .pipe(gulp.dest("./_site/assets/css/"))
+    .pipe(browsersync.stream());
+}
 
-  stream.queue(gulp.src(sources.sass).pipe(sass(style: 'expanded', includePaths: ['src/css'], errLogToConsole: true)))
-  stream.done()
-    .pipe(concat("all.css"))
-    .pipe(if isProd then uglify() else gutil.noop())
-    .pipe(gulp.dest(targets.css))
+// Watch files
+function watchFiles() {
+  gulp.watch("./assets/scss/**/*", css);
+  gulp.watch(
+    [
+      "./_includes/**/*",
+      "./_layouts/**/*",
+      "./_pages/**/*",
+      "./_posts/**/*",
+      "./_projects/**/*"
+    ]
+  );
+  gulp.watch("./assets/img/**/*", images);
+}
 
-gulp.task 'server', ->
-  browserSync.init null,
-    open: true
-    server:
-      baseDir: targets.html
-    reloadDelay: 2000
-    watchOptions:
-      debounceDelay: 1000
+// define complex tasks
+const build = gulp.series(clean, gulp.parallel(css, images));
+const watch = gulp.parallel(watchFiles, browserSync);
 
-gulp.task 'watch', ->
-  gulp.watch sources.js, ['js']
-  gulp.watch sources.css, ['css']
-  gulp.watch sources.html, ['slim']
-  gulp.watch 'www/**/**', (file) ->
-    browserSync.reload(file.path) if file.type is "changed"
-
-gulp.task 'build', ['lint', 'js', 'css', 'slim']
-
-gulp.task 'default', ['watch', 'server']
+// export tasks
+exports.images = images;
+exports.css = css;
+exports.clean = clean;
+exports.build = build;
+exports.watch = watch;
+exports.default = build;
