@@ -1,81 +1,116 @@
-#
-# Gulpfile with:
-#
-# - Slim
-# - Sass
-# - Browsersync
-# - CSS and HTML compression
-#
-# Install dependencies:
-#
-#   $ npm install gulp gulp-concat gulp-uglify event-stream gulp-sass gulp-cssmin browser-sync gulp-util gulp-shell
-#
-# Then start developing:
-#
-#   $ gulp
-#
+"use strict";
 
-gulp        = require 'gulp'
-concat      = require 'gulp-concat'
-es          = require('event-stream')
-sass        = require 'gulp-sass'
-uglify      = require 'gulp-uglify'
-streamqueue = require 'streamqueue' # Preserves file order (vendor...)
-gutil       = require 'gulp-util'
-shell       = require 'gulp-shell'
-cssmin      = require 'gulp-cssmin'
-browserSync = require 'browser-sync'
+// Load plugins
+const autoprefixer = require("autoprefixer");
+const browsersync = require("browser-sync").create();
+const cp = require("child_process");
+const cssnano = require("cssnano");
+const del = require("del");
+const eslint = require("gulp-eslint");
+const gulp = require("gulp");
+const imagemin = require("gulp-imagemin");
+const newer = require("gulp-newer");
+const plumber = require("gulp-plumber");
+const sass = require("gulp-sass");
 
-isProd = gutil.env.type is 'prod'
 
-sources =
-  sass: 'src/css/**/*.sass'
-  css: 'src/css/**/*.css'
-  html: 'src/**/*.slim'
-  js: 'src/js/**/*.js'
+// BrowserSync
+function browserSync(done) {
+    browsersync.init({
+        server: {
+            baseDir: "./_site/"
+        },
+        port: 3000
+    });
+    done();
+}
 
-targets =
-  css: 'www/css'
-  html: 'www/'
-  js: 'www/js'
+// BrowserSync Reload
+function browserSyncReload(done) {
+    browsersync.reload();
+    done();
+}
 
-# Compile Slim
-gulp.task 'slim', ->
-  gulp.src(sources.html)
-    .pipe(shell(["slimrb -r ./lib/helpers.rb -p <%= file.path %> > ./#{targets.html}/<%= file.relative.replace(\".slim\", \".html\") %>"]))
+// Clean assets
+function clean() {
+    return del(["./_site/assets/"]);
+}
 
-# Compile CSS
-gulp.task 'css', ->
-  stream = streamqueue(objectMode: true)
-  # Vendor files
-  stream.queue(gulp.src(sources.css))
-  # App files
-  stream.queue(gulp.src(sources.sass).pipe(sass(style: 'expanded', includePaths: ['src/css'], errLogToConsole: true)))
-  stream.done()
-    .pipe(concat("all.css"))
-    .pipe(if isProd then uglify() else gutil.noop())
-    .pipe(gulp.dest(targets.css))
+// Optimize Images
+function images() {
+    return gulp
+        .src("./assets/img/**/*")
+        .pipe(newer("./_site/assets/img"))
+        .pipe(
+            imagemin([
+                imagemin.gifsicle({ interlaced: true }),
+                imagemin.jpegtran({ progressive: true }),
+                imagemin.optipng({ optimizationLevel: 5 }),
+                imagemin.svgo({
+                    plugins: [
+                        {
+                            removeViewBox: false,
+                            collapseGroups: true
+                        }
+                    ]
+                })
+            ])
+        )
+        .pipe(gulp.dest("./_site/assets/img"));
+}
 
-# Reload browser
-gulp.task 'server', ->
-  browserSync.init null,
-    open: true
-    server:
-      baseDir: targets.html
-    reloadDelay: 2000 # Prevent white screen of death
-    watchOptions:
-      debounceDelay: 1000
+// CSS task
+function css() {
+    return gulp
+        .src("./assets/sass/**/*.sass")
+        .pipe(plumber())
+        .pipe(sass({ outputStyle: "expanded" }))
+        .pipe(gulp.dest("./_site/assets/css/"))
+        .pipe(rename({ suffix: ".min" }))
+        .pipe(postcss([autoprefixer(), cssnano()]))
+        .pipe(gulp.dest("./_site/assets/css/"))
+        .pipe(browsersync.stream());
+}
 
-# Watch files for changes
-gulp.task 'watch', ->
-  gulp.watch sources.js, ['js']
-  gulp.watch sources.css, ['css']
-  gulp.watch sources.html, ['slim']
-  gulp.watch 'www/**/**', (file) ->
-    browserSync.reload(file.path) if file.type is "changed"
+// Lint scripts
+function scriptsLint() {
+    return gulp
+        .src(["./assets/js/**/*", "./gulpfile.js"])
+        .pipe(plumber())
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+}
 
-# Build everything
-gulp.task 'build', ['lint', 'js', 'css', 'slim']
 
-# Start a server and watch for file changes
-gulp.task 'default', ['watch', 'server']
+
+// Watch files
+function watchFiles() {
+    gulp.watch("./assets/scss/**/*", css);
+    gulp.watch("./assets/js/**/*", gulp.series(scriptsLint, scripts));
+    gulp.watch(
+        [
+            "./_includes/**/*",
+            "./_layouts/**/*",
+            "./_pages/**/*",
+            "./_posts/**/*",
+            "./_projects/**/*"
+        ],
+        gulp.series(jekyll, browserSyncReload)
+    );
+    gulp.watch("./assets/img/**/*", images);
+}
+
+// define complex tasks
+const js = gulp.series(scriptsLint, scripts);
+const build = gulp.series(clean, gulp.parallel(css, images, jekyll, js));
+const watch = gulp.parallel(watchFiles, browserSync);
+
+// export tasks
+exports.images = images;
+exports.css = css;
+exports.js = js;
+exports.clean = clean;
+exports.build = build;
+exports.watch = watch;
+exports.default = build;

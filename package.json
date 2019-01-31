@@ -1,7 +1,13 @@
 {
   "devDependencies": {
+    "autoprefixer": "^9.4.7",
+    "browser-sync": "^2.26.3",
     "gulp": "^4.0.0",
-    "gulp-minify-css": "latest",
+    "cp": "latest",
+    "cssnano": "latest",
+    "del":"latest",
+    "gulp-imagemin":"latest",
+    "gulp-newer":"latest",
     "gulp-notify": "latest",
     "gulp-plumber": "latest",
     "gulp-sass": "latest",
