@@ -1,42 +1,58 @@
-p
-  font-size: $font-size-centi
-  line-height: $line-height-deci
-  margin-bottom: $space-s
+html
+  font-variant-numeric: oldstyle-nums
+  font-feature-settings: "liga1" on
+  font-family: $font-family-body
 
-  +medium-up
-    font-size: $font-size-base
-    line-height: $line-height-base
-    margin-bottom: $space-m
+i
+  font-style: italic
 
-h1, h2, h3, h4
+b, strong, em
+  font-weight: 700
+
+html,
+p,
+li,
+blockquote,
+pre
+  +typography-sizes($font-size-deci, $line-height-centi, $font-size-base, $line-height-base)
+
+p > a, p > label a
+  cursor: pointer
+  color: $color-link
+  text-decoration: underline
+  &:hover
+    opacity: 0.6
+
+h1,
+h2
+  font-weight: 500
   font-family: $font-family-headings
-  font-weight: 400
-  margin-bottom: $space-s
-  +medium-up
-    margin-bottom: $space-m
+
+h3,
+h4,
+h5
+  font-weight: 500
+  font-family: $font-family-body
 
 h1
-  font-size: $font-size-hecto
-  line-height: $line-height-deca
-  +medium-up
-    font-size: $font-size-kilo
-    line-height: $line-height-kilo
+  +typography-sizes($font-size-hecto, $line-height-deca, $font-size-kilo, $line-height-hecto)
+
 h2
-  font-size: $font-size-deca
-  line-height: $line-height-base
-  +medium-up
-    font-size: $font-size-hecto
-    line-height: $line-height-hecto
+  +typography-sizes($font-size-deca, $line-height-deci, $font-size-hecto, $line-height-deca)
+  * + &
+    margin-top: $space-deca
+
 h3
-  font-size: $font-size-base
-  line-height: $line-height-base
-  +medium-up
-    font-size: $font-size-deca
-    line-height: $line-height-deca
+  +typography-sizes($font-size-base, $line-height-centi, $font-size-deca, $line-height-base)
+  * + &
+    margin-top: $space-base
+
 h4
-  font-size: $font-size-deci
-  line-height: $line-height-deci
-  font-weight: 200
-  +medium-up
-    font-size: $font-size-base
-    line-height: $line-height-base
+  +typography-sizes($font-size-centi, $line-height-centi, $font-size-base, $line-height-deci)
+  * + &
+    margin-top: $space-centi
+
+h5
+  +typography-sizes($font-size-milli, $line-height-milli, $font-size-centi, $line-height-centi)
+  * + &
+    margin-top: $space-centi
