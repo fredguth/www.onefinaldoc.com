@@ -1,7 +1,7 @@
 var gulp =  require('gulp');
 var sass = require('gulp-sass');
 var slim = require('gulp-slim');
-var minifyCSS = require('gulp-minify-css');
+var minifyCSS = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
 var plumber = require('gulp-plumber');
 var notify = require('gulp-notify');
@@ -59,4 +59,3 @@ gulp.task('watch', function() {
 gulp.task('default', ['sass', 'slim', 'watch'] )
 
 gulp.task('release', ['sass-minified', 'uglify', 'slim', 'watch'] )
-
