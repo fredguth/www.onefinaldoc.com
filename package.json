@@ -12,11 +12,10 @@
     "gulp-plumber": "^1.2.1",
     "gulp-sass": "^4.0.2",
     "gulp-slim": "^0.3.0",
-    "gulp-uglify": "latest"
-  },
-  "dependencies": {
+    "gulp-uglify": "latest",
     "gulp-clean-css": "^4.0.0",
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0"
-  }
+  },
+  "dependencies": {}
 }
