@@ -1,5 +1,5 @@
 {
-  "devDependencies": {
+  "dependencies": {
     "autoprefixer": "^9.4.7",
     "browser-sync": "^2.26.3",
     "cp": "latest",
@@ -17,5 +17,8 @@
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0"
   },
-  "dependencies": {}
+  "scripts":{  
+    "preinstall": "/usr/bin/env gem install slim",
+    "now-build": "npm run preinstall && gulp"
+  }
 }

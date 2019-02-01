@@ -7,3 +7,9 @@ npm install
 gulp
 gulp watch
 
+## deploy
+gulp
+cd _site
+now
+now alias set <site-iaoolidvcj.now.sh> web.onefinaldoc.com
+
