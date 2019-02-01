@@ -1,0 +1,10 @@
+{
+  "name": "ofd-site",
+  "version": 2,
+  "alias": "web.onefinaldoc.com",
+  "builds": [{
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": {"distDir":"_site"}
+    }]
+}
