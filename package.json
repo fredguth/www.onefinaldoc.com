@@ -18,7 +18,7 @@
     "gulp-rename": "^1.4.0"
   },
   "scripts":{  
-    "preinstall": "/usr/bin/env gem install slim",
+    "preinstall": "gem install slim",
     "now-build": "npm run preinstall && gulp"
   }
 }
