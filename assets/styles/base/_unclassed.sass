@@ -28,3 +28,15 @@ body
 
 img
   max-width: 100%
+
+main > section
+  +container-width
+  padding-top: $space-deca
+  padding-bottom: $space-deca
+  +media-mediumup
+    padding-top: $space-hecto
+    padding-bottom: $space-hecto
+  &:first-of-type
+    padding-top: $space-deca + $space-header
+    +media-mediumup
+      padding-top: $space-hecto + $space-header
