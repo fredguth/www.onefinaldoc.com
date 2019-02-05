@@ -1,0 +1,31 @@
+.hero-mail
+  background-color: #fff
+  box-shadow: 0 4px 12px rgba(#000, 0.4)
+  border-radius: 5px
+  padding: $space-deci
+  +media-mediumdown
+    margin-bottom: $space-base
+  +media-mediumup
+    padding: $space-base
+    min-width: 32rem
+    width: 32rem
+    margin-left: $space-base
+  &.-mobile
+    +media-mediumup
+      display: none
+  &.-desktop
+    +media-mediumdown
+      display: none
+  > .body
+    font-family: $font-family-sans
+    +typography-sizes($font-size-deca, $line-height-deca, $font-size-hecto, $line-height-hecto)
+  > .header
+    border-bottom: 1px solid hsl(0, 0%, 80%)
+    padding-bottom: $space-milli
+    margin-bottom: $space-base
+    > h4
+      +typography-sizes($font-size-centi, $line-height-centi, $font-size-deci, $line-height-deci)
+      font-family: $font-family-mono
+      font-weight: 400
+      &:not(:first-child)
+        margin-top: $space-nano
