@@ -17,8 +17,11 @@
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0"
   },
-  "scripts":{  
+  "scripts": {
     "preinstall": "gem install slim",
     "now-build": "npm run preinstall && gulp"
+  },
+  "devDependencies": {
+    "gulp-rev": "^9.0.0"
   }
 }
