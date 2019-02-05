@@ -1,0 +1,32 @@
+.section-newsletter
+  background-color: $color-ofd-green
+  background: repeating-linear-gradient(-45deg, $color-ofd-green, $color-ofd-green 3rem, mix(#fff, $color-ofd-green, 15%) 3rem, mix(#fff, $color-ofd-green, 15%) 8rem)
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  > .title
+    font-weight: 700
+
+  > .fields
+    display: flex
+    align-items: stretch
+    margin-top: $space-deci
+    +media-mediumup
+      margin-top: $space-base
+
+    > .input
+      background-color: #fff
+      font-family: $font-family-body
+      color: #000
+      margin-right: $space-milli
+      padding-top: $space-milli
+      padding-bottom: $space-milli
+      padding-left: $space-milli
+      padding-right: $space-milli
+      transition: all 0.2s ease
+      border-radius: 4px
+      +placeholder
+        color: hsl(0, 0%, 80%)
+      &:focus
+        box-shadow: 0 0 8px rgba($color-ofd-blue, 0.6), 0 0 0 1px $color-ofd-blue
