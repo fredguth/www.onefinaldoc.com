@@ -13,7 +13,6 @@ const postcss = require("gulp-postcss");
 const rename = require("gulp-rename");
 const sass = require("gulp-sass");
 const slim = require("gulp-slim");
-const rev = require('gulp-rev');
 
 // BrowserSync
 function browserSync(done) {
@@ -66,10 +65,9 @@ function css() {
     .src("./assets/styles/**/*.sass")
     .pipe(plumber())
     .pipe(sass({ outputStyle: "expanded" }))
-    .pipe(gulp.dest("./_site/assets/"))
     .pipe(rename({ suffix: ".min" }))
+    .pipe(gulp.dest("./_site/assets/"))
     .pipe(postcss([autoprefixer(), cssnano()]))
-    .pipe(rev())
     .pipe(gulp.dest("./_site/assets/"))
     .pipe(browsersync.stream());
 }
