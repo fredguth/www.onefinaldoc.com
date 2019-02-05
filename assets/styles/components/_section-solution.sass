@@ -4,12 +4,20 @@
   +media-mediumdown
     flex-direction: column
 
-  > .branding
+  > .branding,
+  > .content > .branding
+    +responsive-display
     +media-mediumdown
-      margin-bottom: $space-deca
+      max-width: 16rem
+      margin-top: $space-base
+      margin-bottom: $space-base
     +media-mediumup
       min-width: 24rem
       margin-right: $space-hecto
 
-  > .content > .title
-    +typography-sizes($font-size-hecto, $line-height-deca, $font-size-kilo, $line-height-kilo)
+  > .content
+    display: flex
+    flex-direction: column
+    align-items: center
+    > .title
+      +typography-sizes($font-size-hecto, $line-height-deca, $font-size-kilo, $line-height-kilo)

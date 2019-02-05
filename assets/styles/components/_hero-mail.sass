@@ -3,12 +3,7 @@
   box-shadow: 0 4px 12px rgba(#000, 0.4)
   border-radius: 8px
   padding: $space-deci
-  &.-mobile
-    +media-mediumup
-      display: none
-  &.-desktop
-    +media-mediumdown
-      display: none
+  +responsive-display
   > .rule
     border-top: none
     border-bottom: 1px solid hsl(0, 0%, 80%)
