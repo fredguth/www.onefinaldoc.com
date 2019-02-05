@@ -19,6 +19,13 @@ pre
     +media-mediumup
       margin-top: $space-base
 
+.-small
+  +typography-sizes($font-size-deci, $line-height-deci, $font-size-base, $line-height-base)
+  &:not(:first-child)
+    margin-top: $space-centi
+    +media-mediumup
+      margin-top: $space-deci
+
 p > a
   cursor: pointer
   color: $color-link
@@ -72,3 +79,6 @@ h5
 
 .-strikethrough
   text-decoration: line-through
+
+.-rightaligned
+  text-align: right
