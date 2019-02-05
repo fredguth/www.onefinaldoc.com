@@ -1,3 +1,14 @@
 .section-solution
   display: flex
-  background-color: red
+  align-items: center
+  +media-mediumdown
+    flex-direction: column
+
+  > .branding
+    +media-mediumdown
+      margin-bottom: $space-deci
+    +media-mediumup
+      margin-right: $space-deci
+
+  > .content > .title
+    +typography-sizes($font-size-hecto, $line-height-deca, $font-size-kilo, $line-height-kilo)
