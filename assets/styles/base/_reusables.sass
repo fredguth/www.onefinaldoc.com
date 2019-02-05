@@ -5,11 +5,11 @@
     padding-left: calc(#{$space-base} + 2vw)
     padding-right: calc(#{$space-base} + 2vw)
   +media-largeup
-    padding-left: calc(#{$space-deca} + 3vw)
-    padding-right: calc(#{$space-deca} + 3vw)
+    padding-left: calc(#{$space-hecto} + 6vw)
+    padding-right: calc(#{$space-hecto} + 6vw)
   +media-hugeup
-    padding-left: calc(#{$space-hecto} + 4vw)
-    padding-right: calc(#{$space-hecto} + 4vw)
+    padding-left: calc((100vw - 72rem) / 2)
+    padding-right: calc((100vw - 72rem) / 2)
 
 =align-center
   position: relative
@@ -27,3 +27,11 @@
 =placeholder
   &::placeholder
     @content
+
+=section-centered
+  > .title
+    text-align: center
+    +media-mediumup
+      max-width: 90%
+      margin-left: auto
+      margin-right: auto
