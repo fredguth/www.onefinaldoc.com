@@ -3,7 +3,7 @@ html
   head
     meta charset="utf-8"
     meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
-    title One Final Doc
+    title One Final Doc, just one.
     meta name="description" content="One Final Doc"
     meta name="author" content=""
     meta name="keywords" content="document"
@@ -26,14 +26,14 @@ html
           h2 Contract collaboration shouldn’t be this f*cked
           .hero-mail.-mobile
             header.header
-              h4 <em>To:</em> max@stressed.com
-              h4 <em>From:</em> jen@third-party.com
+              h4 <em>To:</em> max@tightschedule.com
+              h4 <em>From:</em> jen@unfocused.com
               h4 <em>Subject:</em> Important Contract
             hr.rule
             article.body
               p Thanks for sending along contract-<em>final-final-v4</em>.docx.
               p I’ve attached some final changes.
-          p Your team wastes thousands of hours figuring out contract changes in long, chaotic, nerve-racking email threads.
+          p Your team wastes thousands of hours figuring out contract changes in long, chaotic, nerve-racking, email threads.
         .hero-mail.-desktop
           header.header
             h4 <em>To:</em> max@stressed.com
@@ -42,23 +42,24 @@ html
           hr.rule
           article.body
             p Thanks for sending along contract-<em>final-final-v4</em>.docx.
-            p I’ve attached some final changes.
+            p I’ve attached some <i>final</i> changes.
 
       section.section-solution
         .branding.-desktop
           img src="assets/images/logo_onefinaldoc.svg"
         .content
-          h1.title Tame your Microsoft Word™️ documents version <span class="-strikethrough">dis</span>control
+          h1.title Tame your Word™️ documents version <span class="-strikethrough">dis</span>control
           .branding.-mobile
             img src="assets/images/logo_onefinaldoc.svg"
           p Our secure and version controlled hub for your contracts make collaborating easy, so you can focus on content. Finally!
-          form.form-cta
-            input.input type="text" placeholder="sarah@hopeful.com"
-            button.ofd-button type="submit" Get your invitation
-          p.-small.-rightaligned * 14-day free trial. No credit card required.
+          <form class="form-cta" id="send-magic">
+            <input class="input" type="text" name="email" placeholder="sarah@hopeful.com">
+            button.ofd-button.-yellow type="submit" Get your invitation
+          </form>
+          p.-small.-rightaligned * Free. No credit card required.
 
       section.section-howto
-        h2.title Just <i>carbon copy</i> <a mailto="magic@just.onefinaldoc.com" style="word-wrap: break-word;">magic@just.onefinaldoc.com</a> and reply-to-all to see the magic with your own eyes
+        h2.title Just <i>carbon copy</i> <a mailto="magic@just.onefinaldoc.com" style="word-wrap: break-word;">magic@just.onefinaldoc.com</a> and reply-to-all to see doubt your own eyes
         .hero-mail
           header.header
             h4 <em>To:</em> andrew@part-one.com, clara@part-two.com
@@ -71,12 +72,15 @@ html
       /   h2.title Built from over $1 billion worth of contracts with renamed banks and lawyers
 
       section.section-newsletter
-        h2.title Start free today!
-        form.form-cta
-          input.input type="text" placeholder="sarah@hopeful.com"
-          button.ofd-button.-yellow type="submit" Get your invitation
-        p * 14-day free trial. No credit card required.
+        h2.title Say goodbye to chaos 👋
+        <form class="form-cta" id="send-magic">
+          <input class="input" type="text" name="email" placeholder="sarah@hopeful.com">
+          button.ofd-button.-yellow id="confetti" type="submit" Get your invitation
+        </form>
+       
+        p * Free. No credit card required.
         p Already a customer? <a href="">Sign in</a>
 
     script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
     script src="assets/script.js"
+    script src="assets/confetti.js"

@@ -5,6 +5,6 @@
   "builds": [{
       "src": "package.json",
       "use": "@now/static-build",
-      "config": {"distDir":"_site", "newPipeline": true }
+      "config": {"distDir":"_site", "newPipeline": true, "cleanUrl": false }
     }]
 }

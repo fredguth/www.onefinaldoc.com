@@ -1,27 +1,25 @@
 {
-  "dependencies": {
+  "scripts": {
+    "preinstall": "gem install slim",
+    "now-build": "npm run preinstall && gulp"
+  },
+  "devDependencies": {
     "autoprefixer": "^9.4.7",
     "browser-sync": "^2.26.3",
     "cp": "latest",
     "cssnano": "^4.1.8",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
+    "gulp-rev": "^9.0.0",
+    "gulp-clean-css": "^4.0.0",
     "gulp-imagemin": "^5.0.3",
     "gulp-newer": "^1.4.0",
     "gulp-notify": "latest",
     "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "gulp-slim": "^0.3.0",
-    "gulp-uglify": "latest",
-    "gulp-clean-css": "^4.0.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-rename": "^1.4.0"
-  },
-  "scripts": {
-    "preinstall": "gem install slim",
-    "now-build": "npm run preinstall && gulp"
-  },
-  "devDependencies": {
-    "gulp-rev": "^9.0.0"
+    "gulp-uglify": "latest"
   }
 }
