@@ -1,5 +1,3 @@
-import { confetti } from "dom-confetti";
-
 $(document).on('scroll', function() {
 
   var sectionSolution = $('.section-solution');
@@ -32,7 +30,7 @@ var request;
 
 // Bind to the submit event of our form
 $("#send-magic").submit(function (event) {
-
+ console.log('yo')
   // Prevent default posting of form - put here to work in case of errors
   event.preventDefault();
 
@@ -67,7 +65,7 @@ $("#send-magic").submit(function (event) {
     // Log a message to the console
     console.log("Hooray, it worked!");
     console.log(serializedData);
-    window.location.href=`/check-your-email.html?${serializedData}`
+    window.location.href=`https://web.onefinaldoc.com/check-your-email.html?${serializedData}`
     
   });
 
@@ -78,6 +76,7 @@ $("#send-magic").submit(function (event) {
       "The following error occurred: " +
       textStatus, errorThrown
     );
+    window.location.href = `https://web.onefinaldoc.com/oops.html`
   });
 
   // Callback handler that will be called regardless
