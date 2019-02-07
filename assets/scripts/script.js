@@ -30,7 +30,6 @@ var request;
 
 // Bind to the submit event of our form
 $("#send-magic").submit(function (event) {
- console.log('yo')
   // Prevent default posting of form - put here to work in case of errors
   event.preventDefault();
 
@@ -59,15 +58,7 @@ $("#send-magic").submit(function (event) {
     data: serializedData,
     dataType: "json"
   });
-
-  // Callback handler that will be called on success
-  request.done(function (response, textStatus, jqXHR) {
-    // Log a message to the console
-    console.log("Hooray, it worked!");
-    console.log(serializedData);
-    window.location.href=`https://web.onefinaldoc.com/check-your-email.html?${serializedData}`
-    
-  });
+  window.location.href = `https://web.onefinaldoc.com/check-your-email?${serializedData}`
 
   // Callback handler that will be called on failure
   request.fail(function (jqXHR, textStatus, errorThrown) {
@@ -76,7 +67,7 @@ $("#send-magic").submit(function (event) {
       "The following error occurred: " +
       textStatus, errorThrown
     );
-    window.location.href = `https://web.onefinaldoc.com/oops.html`
+    window.location.href = `https://web.onefinaldoc.com/oops`
   });
 
   // Callback handler that will be called regardless
